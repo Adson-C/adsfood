@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "pratos")
-public class Prato {
+@Table(name = "cardapio")
+public class Cardapio {
 
     // Atributos
     @Id
@@ -19,7 +19,7 @@ public class Prato {
     @Column(name = "data_registro")
     private LocalDateTime dataRegistro = LocalDateTime.now();
 
-    public Prato() {
+    public Cardapio() {
     }
 
     public Integer getId() {
