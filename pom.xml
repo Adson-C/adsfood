@@ -23,6 +23,12 @@
             <artifactId>h2</artifactId>
             <version>1.4.200</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version> <!-- Adicione a versão mais recente -->
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <properties>

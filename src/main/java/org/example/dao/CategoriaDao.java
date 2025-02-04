@@ -3,6 +3,8 @@ package org.example.dao;
 import org.example.entity.Categoria;
 
 import javax.persistence.EntityManager;
+import java.util.Collections;
+import java.util.List;
 
 public class CategoriaDao {
     // entity manager
@@ -19,6 +21,15 @@ public class CategoriaDao {
     // buscar read
     public Categoria buscarPorId(final Integer id) {
         return this.entityManager.find(Categoria.class, id);
+    }
+    public List<Categoria> consultarTodos() {
+        try {
+            String jpql = "SELECT c FROM Categoria c";
+            return this.entityManager.createQuery(jpql,Categoria.class).getResultList();
+
+        }catch (Exception e){
+            return Collections.emptyList();
+        }
     }
     // atualizar update
     public void atualizar(final Categoria categoria) {
