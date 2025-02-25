@@ -56,6 +56,7 @@ public class CardapioDao {
 
     // atualizar update
     public void atualizar(final Cardapio prato) {
+
         this.entityManager.merge(prato);
     }
     // deletar delete

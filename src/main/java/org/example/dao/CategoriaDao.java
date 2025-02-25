@@ -25,7 +25,7 @@ public class CategoriaDao {
     public List<Categoria> consultarTodos() {
         try {
             String jpql = "SELECT c FROM Categoria c";
-            return this.entityManager.createQuery(jpql,Categoria.class).getResultList();
+            return this.entityManager.createQuery(jpql, Categoria.class).getResultList();
 
         }catch (Exception e){
             return Collections.emptyList();
