@@ -1,33 +1,66 @@
 package org.example.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "clientes")
-@Builder
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+//@Builder
+//@Data
+//@AllArgsConstructor
+//@NoArgsConstructor
 public class Cliente {
 
-    private String nome;
     @Id
     private String cpf;
-    private String cep;
+    private String nome;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Endereco> enderecoList = new ArrayList<>();
+
+    public Cliente() {
+    }
+
+    public Cliente(String cpf, String nome) {
+        this.cpf = cpf;
+        this.nome = nome;
+    }
+    public void addEndereco(Endereco endereco) {
+        enderecoList.add(endereco);
+        endereco.setCliente(this);
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public List<Endereco> getEnderecoList() {
+        return enderecoList;
+    }
+
+    public void setEnderecoList(List<Endereco> enderecoList) {
+        this.enderecoList = enderecoList;
+    }
 
     @Override
     public String toString() {
         return "Cliente{" +
-                "nome='" + nome + '\'' +
-                ", cpf='" + cpf + '\'' +
-                ", cep='" + cep + '\'' +
+                "cpf='" + cpf + '\'' +
+                ", nome='" + nome + '\'' +
+                ", enderecoList=" + enderecoList +
                 '}';
     }
 }

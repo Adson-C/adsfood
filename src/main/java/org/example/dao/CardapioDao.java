@@ -10,57 +10,42 @@ import java.util.List;
 public class CardapioDao {
     // entity manager
     private EntityManager entityManager;
-    // construtor
+
     public CardapioDao(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-    // CRUD - Create, Read, Update, Delete
-    // persistir  create cadastro
-    public void cadastrar(final Cardapio prato) {
-        this.entityManager.persist(prato);
+
+    /*
+     * CRUD
+     * C = CREATE
+     * R = READ
+     * U = UPDATE
+     * D = DELETE
+     * */
+
+    public void cadastrar(final Cardapio cardapio) {
+        this.entityManager.persist(cardapio);
+    }
+
+    public Cardapio consultarPorId(final Integer id) {
+        return this.entityManager.find(Cardapio.class, id);
     }
 
     public List<Cardapio> consultarPorValor(final BigDecimal filtro){
-        try {
-
         String jpql = "SELECT c FROM Cardapio c WHERE c.valor = :valor";
         return this.entityManager.createQuery(jpql,Cardapio.class).setParameter("valor",filtro).getResultList();
-        }catch (Exception e){
-            return Collections.emptyList();
-        }
-    }
-    // consulta por nome
-    public Cardapio consultarPorNome(final String filtro){
-        try {
-            String jpql = "SELECT c FROM Cardapio c WHERE UPPER(c.nome) = UPPER(:nome)";
-            return this.entityManager.createQuery(jpql,Cardapio.class).setParameter("nome",filtro).getSingleResult();
-        }catch (Exception e){
-            return null;
-        }
     }
 
-    // buscar read
-    public Cardapio buscarPorId(final Integer id) {
-        return this.entityManager.find(Cardapio.class, id);
-    }
-    // listar read
-    public List<Cardapio> consultarTodos() {
-        // JPql - Java Persistence Query Language
-        try {
-            String sql = "SELECT p FROM Cardapio p";
-            return this.entityManager.createQuery(sql, Cardapio.class).getResultList();
-        } catch (Exception e) {
-            return Collections.emptyList();
-        }
+    public List<Cardapio> consultarTodos(){
+        String jpql = "SELECT c FROM Cardapio c";
+        return this.entityManager.createQuery(jpql,Cardapio.class).getResultList();
     }
 
-    // atualizar update
-    public void atualizar(final Cardapio prato) {
-
-        this.entityManager.merge(prato);
+    public void atualizar(final Cardapio cardapio){
+        this.entityManager.merge(cardapio);
     }
-    // deletar delete
-    public void deletar(final Cardapio prato) {
-        this.entityManager.remove(prato);
+
+    public void excluir(final Cardapio cardapio){
+        this.entityManager.remove(cardapio);
     }
 }

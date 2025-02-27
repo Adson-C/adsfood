@@ -4,8 +4,9 @@ import org.example.dao.CardapioDao;
 import org.example.dao.ClienteDao;
 import org.example.dao.OrdemDao;
 import org.example.entity.Cliente;
-import org.example.entity.OdermCardapio;
+import org.example.entity.Endereco;
 import org.example.entity.Ordem;
+import org.example.entity.OrdensCardapio;
 import org.example.util.CargaDeDadosUtil;
 import org.example.util.JPAUtil;
 
@@ -24,14 +25,17 @@ public class OrdemService {
         ClienteDao clienteDao = new ClienteDao(entityManager);
         OrdemDao ordemDao = new OrdemDao(entityManager);
 
-        // criando Cliente
-        Cliente felipe = new Cliente("Felipe", "11111111111", "12345678");
+        Endereco endereco = new Endereco("000000000","sem teto","apto 1001","Sao Paulo","SP");
+        Cliente felipe = new Cliente("111111111111","Felipe");
+        felipe.addEndereco(endereco);
         Ordem ordem = new Ordem(felipe);
-        ordem.addOrdemCardapio(new OdermCardapio(ordem, cardapioDao.buscarPorId(1), 2));
+        ordem.addOrdensCardapio(new OrdensCardapio(cardapioDao.consultarPorId(1),2));
+        ordem.addOrdensCardapio(new OrdensCardapio(cardapioDao.consultarPorId(2),3));
         clienteDao.cadastrar(felipe);
         ordemDao.cadastrar(ordem);
+        System.out.println(ordem);
         entityManager.getTransaction().commit();
         entityManager.close();
-
     }
+
 }
