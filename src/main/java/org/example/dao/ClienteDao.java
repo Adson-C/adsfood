@@ -24,7 +24,7 @@ public class ClienteDao {
     }
     public List<Cliente> consultarTodos() {
         try {
-            String jpql = "SELECT c FROM Categoria c";
+            String jpql = "SELECT c FROM Cliente c";
             return this.entityManager.createQuery(jpql, Cliente.class).getResultList();
 
         }catch (Exception e){
@@ -36,7 +36,7 @@ public class ClienteDao {
         this.entityManager.merge(cliente);
     }
     // deletar delete
-    public void deletar(final Cliente cliente) {
+    public void excluir(final Cliente cliente) {
         this.entityManager.remove(cliente);
     }
 }

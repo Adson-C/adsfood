@@ -36,7 +36,7 @@ public class CategoriaDao {
         this.entityManager.merge(categoria);
     }
     // deletar delete
-    public void deletar(final Categoria categoria) {
+    public void excluir(final Categoria categoria) {
         this.entityManager.remove(categoria);
     }
 }

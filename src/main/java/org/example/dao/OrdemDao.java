@@ -24,7 +24,7 @@ public class OrdemDao {
     }
     public List<Ordem> consultarTodos() {
         try {
-            String jpql = "SELECT c FROM Categoria c";
+            String jpql = "SELECT o FROM Ordem o";
             return this.entityManager.createQuery(jpql, Ordem.class).getResultList();
 
         }catch (Exception e){
@@ -36,7 +36,7 @@ public class OrdemDao {
         this.entityManager.merge(ordem);
     }
     // deletar delete
-    public void deletar(final Ordem ordem) {
+    public void excluir(final Ordem ordem) {
         this.entityManager.remove(ordem);
     }
 }

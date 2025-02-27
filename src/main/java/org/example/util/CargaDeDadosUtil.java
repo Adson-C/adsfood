@@ -14,12 +14,9 @@ public class CargaDeDadosUtil {
     private CargaDeDadosUtil(){}
 
     public static void cadastarCategorias(EntityManager entityManager) {
-        Categoria entrada = new Categoria();
-        entrada.setNome("Entrada");
-        Categoria salada = new Categoria();
-        salada.setNome("Salada");
-        Categoria principal = new Categoria();
-        principal.setNome("Principal");
+        Categoria entrada = new Categoria("Entrada");
+        Categoria salada = new Categoria("Salada");
+        Categoria principal = new Categoria("Pratos Principal");
 
         CategoriaDao categoriaDao = new CategoriaDao(entityManager);
 
@@ -38,69 +35,28 @@ public class CargaDeDadosUtil {
 
         List<Categoria> categorias = categoriaDao.consultarTodos();
 
-        Cardapio spaguetti = new Cardapio();
-        spaguetti.setNome("Spaguetti");
-        spaguetti.setDescricao("Spaguetti ao molho de tomate");
-        spaguetti.setDisponivel(true);
-        spaguetti.setValor(BigDecimal.valueOf(60.00));
-        spaguetti.setCategoria(categorias.get(1));
+        Cardapio moqueca = new Cardapio("Moqueca", "Peixe branco, banana da terra, arroz e farofa",
+                true, BigDecimal.valueOf(95.00), categorias.get(2));
+        Cardapio spaguetti = new Cardapio("Spaguetti", "Spagatti ao molho de parmesão e cogumelos",
+                true, BigDecimal.valueOf(68.00), categorias.get(2));
+        Cardapio bife = new Cardapio("Bife", "Bife acebolado com arroz branco, farofa e batata frita",
+                true, BigDecimal.valueOf(59.00), categorias.get(2));
+        Cardapio cordeiro = new Cardapio("Cordeiro", "Cordeiro com risoto de funghi",
+                true, BigDecimal.valueOf(88.00), categorias.get(2));
+        Cardapio burrata = new Cardapio("Burrata", "Tomates queimados, rúcula e torrada",
+                true, BigDecimal.valueOf(15.00), categorias.get(0));
+        Cardapio bruschetta = new Cardapio("Bruschetta", "Tomate, mucarela e manjericao",
+                true, BigDecimal.valueOf(20.00), categorias.get(0));
+        Cardapio scappeta = new Cardapio("Scappeta", "Ragu de linguica e torradinhas",
+                true, BigDecimal.valueOf(25.00), categorias.get(0));
+        Cardapio caprese = new Cardapio("Caprese", "Mini rucula e mucarela",
+                true, BigDecimal.valueOf(47.00), categorias.get(1));
+        Cardapio caesar = new Cardapio("Caesar", "Salada de franco com molho ceasar",
+                true, BigDecimal.valueOf(40.00), categorias.get(1));
+        Cardapio chevre = new Cardapio("Chevre", "Mix de folhas, mostarda e mel",
+                true, BigDecimal.valueOf(59.00), categorias.get(1));
 
-        Cardapio bife = new Cardapio();
-        bife.setNome("Bife");
-        bife.setDescricao("Bife ao molho de tomate");
-        bife.setDisponivel(true);
-        bife.setValor(BigDecimal.valueOf(59.00));
-        bife.setCategoria(categorias.get(0));
-
-        Cardapio burrata = new Cardapio();
-        burrata.setNome("burrata");
-        burrata.setDescricao("Tomates queimados, rúcula e torrada");
-        burrata.setDisponivel(true);
-        burrata.setValor(BigDecimal.valueOf(15.00));
-        burrata.setCategoria(categorias.get(2));
-
-        Cardapio cordeiro = new Cardapio();
-        cordeiro.setNome("Cordeiro");
-        cordeiro.setDescricao("Cordeiro com risoto de funghi");
-        cordeiro.setDisponivel(true);
-        cordeiro.setValor(BigDecimal.valueOf(88.00));
-        cordeiro.setCategoria(categorias.get(2));
-
-        Cardapio bruschetta = new Cardapio();
-        bruschetta.setNome("bruschetta");
-        bruschetta.setDescricao("Ragu de linguica e torradinhas");
-        bruschetta.setDisponivel(true);
-        bruschetta.setValor(BigDecimal.valueOf(25.00));
-        bruschetta.setCategoria(categorias.get(0));
-
-        Cardapio scappeta = new Cardapio();
-        scappeta.setNome("scappeta");
-        scappeta.setDescricao("Ragu de linguica e torradinhas");
-        scappeta.setDisponivel(true);
-        scappeta.setValor(BigDecimal.valueOf(59.00));
-        scappeta.setCategoria(categorias.get(0));
-
-        Cardapio caprese = new Cardapio();
-        caprese.setNome("caprese");
-        caprese.setDescricao("Mini rucula e mucarela");
-        caprese.setDisponivel(true);
-        caprese.setValor(BigDecimal.valueOf(47.00));
-        caprese.setCategoria(categorias.get(1));
-
-        Cardapio caesar = new Cardapio();
-        caesar.setNome("caesar");
-        caesar.setDescricao("Salada de franco com molho ceasar");
-        caesar.setDisponivel(true);
-        caesar.setValor(BigDecimal.valueOf(40.00));
-        caesar.setCategoria(categorias.get(1));
-
-        Cardapio chevre = new Cardapio();
-        chevre.setNome("chevre");
-        chevre.setDescricao("Chevre, Mix de folhas, mostarda e mel");
-        chevre.setDisponivel(true);
-        chevre.setValor(BigDecimal.valueOf(59.00));
-        chevre.setCategoria(categorias.get(1));
-
+        cardapioDao.cadastrar(moqueca);
         cardapioDao.cadastrar(spaguetti);
         cardapioDao.cadastrar(bife);
         cardapioDao.cadastrar(cordeiro);
@@ -110,7 +66,6 @@ public class CargaDeDadosUtil {
         cardapioDao.cadastrar(caprese);
         cardapioDao.cadastrar(caesar);
         cardapioDao.cadastrar(chevre);
-//        entityManager.getTransaction().commit();
         entityManager.flush();
         entityManager.clear();
     }
