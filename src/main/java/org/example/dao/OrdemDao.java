@@ -1,6 +1,7 @@
 package org.example.dao;
 
 import org.example.entity.Ordem;
+import org.example.vo.ItensPrincipaisVo;
 
 import javax.persistence.EntityManager;
 import java.util.Collections;
@@ -31,6 +32,28 @@ public class OrdemDao {
             return Collections.emptyList();
         }
     }
+    // consultar itens mais vendidos
+    public List<ItensPrincipaisVo> consultarItensMaisVendidos() {
+        try {
+            // join entre ordem e ordens_cardapio
+            String jpql = "SELECT new org.example.vo.ItensPrincipaisVo(" +
+                    "c.nome, SUM(oc.quantidade)) FROM Ordem o " +
+                    "JOIN OrdensCardapio oc on o.id = oc.cardapio.id " +
+                    "JOIN oc.cardapio c " +
+                    "GROUP BY c.nome " +
+                    "ORDER BY SUM(oc.quantidade) DESC";
+            return this.entityManager.createQuery(jpql, ItensPrincipaisVo.class).getResultList();
+
+        }catch (Exception e){
+            return Collections.emptyList();
+        }
+    }
+    public Ordem joinFetchCliente(final Integer id) {
+            String jpql = "SELECT o FROM Ordem o JOIN FECH o.cliente WHERE o.id = :id";
+            return this.entityManager.createQuery(jpql, Ordem.class).setParameter("id", id).getSingleResult();
+
+    }
+
     // atualizar update
     public void atualizar(final Ordem ordem) {
         this.entityManager.merge(ordem);

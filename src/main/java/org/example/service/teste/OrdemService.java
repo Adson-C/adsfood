@@ -2,6 +2,7 @@ package org.example.service.teste;
 
 import org.example.dao.CardapioDao;
 import org.example.dao.ClienteDao;
+import org.example.dao.EnderecoDao;
 import org.example.dao.OrdemDao;
 import org.example.entity.Cliente;
 import org.example.entity.Endereco;
@@ -20,20 +21,30 @@ public class OrdemService {
 
         CargaDeDadosUtil.cadastarCategorias(entityManager);
         CargaDeDadosUtil.cadastrarProdutosCardapio(entityManager);
-
-        CardapioDao cardapioDao = new CardapioDao(entityManager);
-        ClienteDao clienteDao = new ClienteDao(entityManager);
+        CargaDeDadosUtil.cadastrarClientes(entityManager);
+        CargaDeDadosUtil.cadastrarOrdensClientes(entityManager);
         OrdemDao ordemDao = new OrdemDao(entityManager);
-
-        Endereco endereco = new Endereco("000000000","sem teto","apto 1001","Sao Paulo","SP");
-        Cliente felipe = new Cliente("111111111111","Felipe");
-        felipe.addEndereco(endereco);
-        Ordem ordem = new Ordem(felipe);
-        ordem.addOrdensCardapio(new OrdensCardapio(cardapioDao.consultarPorId(1),2));
-        ordem.addOrdensCardapio(new OrdensCardapio(cardapioDao.consultarPorId(2),3));
-        clienteDao.cadastrar(felipe);
-        ordemDao.cadastrar(ordem);
-        System.out.println(ordem);
+        EnderecoDao enderecoDao = new EnderecoDao(entityManager);
+        ClienteDao clienteDao = new ClienteDao(entityManager);
+        System.out.println(enderecoDao.consultarClientes(null, null, "lapa"));
+//        System.out.println(enderecoDao.consultarClientes("BA", "Salvador", "Rio Vermelho"));
+//        System.out.println(clienteDao.consultarPorNome("Denise"));
+//        Ordem ordem = ordemDao.buscarPorId(2);
+//        System.out.println(ordem.getValorTotal());
+//        System.out.println(ordemDao.consultarItensMaisVendidos());
+//        CardapioDao cardapioDao = new CardapioDao(entityManager);
+//        ClienteDao clienteDao = new ClienteDao(entityManager);
+//        OrdemDao ordemDao = new OrdemDao(entityManager);
+//
+//        Endereco endereco = new Endereco("000000000","sem teto","apto 1001","Sao Paulo","SP");
+//        Cliente felipe = new Cliente("111111111111","Felipe");
+//        felipe.addEndereco(endereco);
+//        Ordem ordem = new Ordem(felipe);
+//        ordem.addOrdensCardapio(new OrdensCardapio(cardapioDao.consultarPorId(1),2));
+//        ordem.addOrdensCardapio(new OrdensCardapio(cardapioDao.consultarPorId(2),3));
+//        clienteDao.cadastrar(felipe);
+//        ordemDao.cadastrar(ordem);
+//        System.out.println(ordem);
         entityManager.getTransaction().commit();
         entityManager.close();
     }

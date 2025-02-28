@@ -25,7 +25,7 @@ public class Cardapio {
     private String descricao;
     private Boolean disponivel;
     private BigDecimal valor;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Categoria categoria;
     @Column(name = "data_de_registro")
     private LocalDateTime dataRegistro = LocalDateTime.now();
